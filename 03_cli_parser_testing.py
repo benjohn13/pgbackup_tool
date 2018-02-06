@@ -12,9 +12,9 @@ url = "postgres://bob:password@example.com:1234/db_one"
 
 def test_parser_without_driver():
     # without a specified driver the parser will exit and return an error
-    with pytest.rasies(SystemExit):
+    with pytest.raises(SystemExit):
         parser = cli.create_parser()
-        parser.parse_arges([url])
+        parser.parse_args([url])
 
 # https://docs.pytest.org/en/latest/
 ================================================================================
