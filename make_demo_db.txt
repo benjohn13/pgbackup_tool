@@ -1,0 +1,38 @@
+# Setting up a demo database with records to work with from Linux Academy's GitHub
+~ $
+~ $ curl -o db_setup.sh https://raw.githubusercontent.com/linuxacademy/content-python-for-sys-admins/master/helpers/db_setup.sh
+~ $
+~ $ sudo chmod u+x db_setup.sh
+~ $
+~ $ ./db_setup.sh
+.....
+.....
+Configure database user
+Postgres user name: demo
+Postgres user password: password
+
+
+# Go to https://www.postgresql.org/download/linux/redhat/ and select your distro
+~ $ 
+~ $ sudo yum install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+.....
+.....
+Installed:
+  pgdg-centos96.noarch 0:9.6-3                                                                                                            
+Complete!
+
+
+# Update everything
+~ $
+~ $ sudo yum update
+~ $ sudo yum install postgresql96
+
+
+# Connect to the DB
+# Format = "psql postgres://username:password@ip_address:port_number/db_name"
+~ $
+~ $ psql postgres://demo:password@35.164.35.64:80/sample -c "SELECT count(id) FROM employees;"
+ count 
+-------
+  1000
+(1 row)
