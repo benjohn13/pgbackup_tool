@@ -1,0 +1,186 @@
+# Project setup with pipenv
+~ $ 
+~ $ pip install --user pipenv
+.....
+.....
+
+Complete!
+
+~ $ mkdir -p ~/code/pgbackup
+~ $ cd code/pgbackup
+pgbackup $ 
+pgbackup $ pipenv install --two
+⠋Running virtualenv with interpreter /bin/python2...
+Installing dependencies from Pipfile.lock (b44f36)...
+To activate this project's virtualenv, run the following:
+ $ pipenv shell
+pgbackup $
+pgbackup $ pipenv shell
+Spawning environment shell (/bin/bash). Use 'exit' to leave...
+(pgbackup-E7nj_BsO) pgbackup $ 
+(pgbackup-E7nj_BsO) pgbackup $ vim README.rst
+
+================================================================================
+
+pgbackup
+========
+
+CLI for backing up remote PostgreSQL databases locally or to AWS S3.
+
+
+Preparing for Development
+-------------------------
+1. Ensure ``pip`` and ``pipenv`` are installed.
+2. Clone repository: ``git clone git@github.com:example/pgbackup``
+3. Fetch development dependencies: ``make install``
+ 
+
+Usage
+-----
+ 
+Pass in a full database URL, the storage driver and destination.
+ 
+S3 Example with bucket name:
+ 
+::
+
+
+     $ pgbackup postgres://bob@example.com:1234/db_one --driver s3 backups
+
+Local Example with local path:
+
+::
+
+    $ pgbackup postgres://bob@example.com:1234/db_one --driver local /var/local/
+    db_one/backups/dump.sql
+
+
+Running Tests
+-------------
+
+Run tests locally using ``make`` if virtualenv is active:
+
+::
+
+
+    $ make
+
+If virtualenv is not active, then us ``pipenv``:
+
+::
+
+
+    $ pipenv run make
+
+================================================================================
+:wq
+(pgbackup-E7nj_BsO) pgbackup $
+(pgbackup-E7nj_BsO) pgbackup $ mkdir -p src/pgbackup tests docs
+(pgbackup-E7nj_BsO) pgbackup $ touch src/pgbackup/__init__.py docs/.keep
+(pgbackup-E7nj_BsO) pgbackup $
+(pgbackup-E7nj_BsO) pgbackup $ vim Makefile
+
+================================================================================
+.PHONY: default
+
+default: test
+
+install:
+pipenv install --dev --skip-lock
+
+test:
+PYTHONPATH=./src pytest
+
+================================================================================
+:wq
+(pgbackup-E7nj_BsO) pgbackup $
+(pgbackup-E7nj_BsO) pgbackup $ vim setup.py
+
+================================================================================
+from setuptools import setup, find_packages
+
+with open('README.rst', 'r') as f:
+
+setup(
+	name='pgbackup',
+	version='0.1.0',
+	description='Database backups to AWS S3 or locally.',
+	long_description=readme,
+	author='Ben J',
+	author_email='example@email.com'.
+	packages=find_packages('src'),
+	package_dir={'': 'src'},
+	install_requires=[]
+	)
+
+================================================================================
+:wq
+(pgbackup-E7nj_BsO) pgbackup $
+(pgbackup-E7nj_BsO) pgbackup $ ls
+docs  Makefile  Pipfile  Pipfile.lock  README.rst  setup.py  src  tests
+(pgbackup-E7nj_BsO) pgbackup $
+(pgbackup-E7nj_BsO) pgbackup $ cat Pipfile
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[dev-packages]
+
+
+[packages]
+
+
+[requires]
+
+python_version = "2.7"
+
+
+# Initialize git
+(pgbackup-E7nj_BsO) pgbackup $
+(pgbackup-E7nj_BsO) pgbackup $ git init
+Initialized empty Git repository in /home/user/code/pgbackup/.git/
+
+
+# Curl the python gitignore file on GitHub
+(pgbackup-E7nj_BsO)
+(pgbackup-E7nj_BsO) pgbackup $ curl https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore -o .gitignore
+
+
+# Check git status
+(pgbackup-E7nj_BsO) pgbackup $
+(pgbackup-E7nj_BsO) pgbackup $ git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#       .gitignore
+#       Makefile
+#       Pipfile
+#       Pipfile.lock
+#       README.rst
+#       docs/
+#       setup.py
+#       src/
+nothing added to commit but untracked files present (use "git add" to track)
+
+
+# Commit these
+(pgbackup-E7nj_BsO) pgbackup $
+(pgbackup-E7nj_BsO) pgbackup $ git add --all
+(pgbackup-E7nj_BsO) pgbackup $ git commit -m 'Initial commit'
+[master (root-commit) eed30de] Initial commit
+ 8 files changed, 226 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 Makefile
+ create mode 100644 Pipfile
+ create mode 100644 Pipfile.lock
+ create mode 100644 README.rst
+ create mode 100644 docs/.keep
+ create mode 100644 setup.py
+ create mode 100644 src/pgbackup/__init__.py
