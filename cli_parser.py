@@ -1,5 +1,5 @@
-# [pgbackup $]
-# [pgbackup $] vim tests/test_cli.py
+# (pgbackup-E7nj_BsO) [pgbackup $]
+# (pgbackup-E7nj_BsO) [pgbackup $] vim tests/test_cli.py
 
 import pytest
 from pgbackup import cli
