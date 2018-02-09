@@ -58,3 +58,18 @@ SET lock_timeout = 0;
 -- PostgreSQL database dump complete
 --
 # (pgbackup-E7nj_BsO) [pgbackup $] 
+
+
+# Testing S3 implementation
+# (pgbackup-E7nj_BsO) [pgbackup $] 
+# (pgbackup-E7nj_BsO) [pgbackup $] echo "UPLOADED" > example.txt
+# (pgbackup-E7nj_BsO) [pgbackup $] PYTHONPATH=./src python
+Python 2.7.5 (default, Aug  4 2017, 00:39:18) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import boto3
+>>> from pgbackup import storage
+>>> client = boto3.client('s3')
+>>> infile = open('example.txt')
+>>> storage.s3(client, infile, 'aws-s3-bucket-name-here', infile.name)
+>>>
