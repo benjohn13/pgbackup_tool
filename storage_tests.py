@@ -1,21 +1,52 @@
-# Tests for local file storage module
-#
+# [pgbackup $]
+# [pgbackup $] pip install --user awscli
+# [pgbackup $] aws configure
+# AWS Access Key ID [None]: 
+# ...
+# ...
+# [pgbackup $] 
+# [pgbackup $] pipenv shell
+# (pgbackup-E7nj_BsO) [pgbackup $] 
+# (pgbackup-E7nj_BsO) [pgbackup $] pipenv install boto3
 # (pgbackup-E7nj_BsO) [pgbackup $]
 # (pgbackup-E7nj_BsO) [pgbackup $] vim tests/test_storage.py
 
+import pytest
 import tempfile
 from pgbackup import storage
 
 
-def test_storing_file_locally():
-	"""
-	Write content from one file-like to another
-	"""
+@pytest.fixture()
+def infile():
 	infile = tempfile.TemporaryFile('r+')
 	infile.write("Testing")
 	infile.seek(0)
+	return infile
 
+
+def test_storing_file_locally(infile):
+	"""
+	Write content from one file-like to another
+	"""
 	outfile = tempfile.NamedTemporaryFile(delete=False)
 	storage.local(infile, outfile)
 	with open(outfile.name) as f:
 		assert f.read() == "Testing"
+
+
+def test_storage_file_on_s3(mocker, infile):
+	"""
+	Writes content from one file-like to S3
+	"""
+	client - mocker.Mock()
+	mocker.patch.object(client, "upload_fileobj")
+
+	storage.s3(client, 
+		    infile, 
+		    'bucket-name',
+		    'file-name')
+
+	client.upload_fileobj.assert_called_with(
+		    infile, 
+		    'bucket-name',
+		    'file-name')
