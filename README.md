@@ -1,9 +1,9 @@
 # pgbackup_tool
 
 This repository holds my final project that was developed at the end of an online class
-with Linux Academy. The instructor, Keith Thompson, walked us through examing 
+with Linux Academy. The instructor, Keith Thompson, walked us through examining 
 the problem, planning, structuring the project, test driven development, implementing
-PostgresSQL, implementing local file storage and AWS S3 storage.
+PostgreSQL, implementing local file storage and AWS S3 storage.
 
 The final result was a database backup tool that could save backups locally or in S3. There 
 were some small changes that had to be made; turns out programming languages do not always 
