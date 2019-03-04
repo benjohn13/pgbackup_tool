@@ -65,7 +65,7 @@ Run tests locally using ``make`` if virtualenv is active:
 
     $ make
 
-If virtualenv is not active, then us ``pipenv``:
+If virtualenv is not active, then use ``pipenv``:
 
 ::
 
